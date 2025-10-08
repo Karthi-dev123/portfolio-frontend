@@ -1,11 +1,16 @@
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-500">
-      <h1 className="text-4xl font-bold text-white p-8 rounded shadow-lg">
-        React + Tailwind is working!
-      </h1>
+    <div className="min-h-screen bg-gray-100">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
   );
 }
