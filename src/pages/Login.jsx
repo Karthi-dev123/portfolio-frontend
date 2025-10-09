@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('student'); // New: Role state, default student
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password });
-    // Later: Axios POST to backend /auth/login
-    alert('Login form submitted! (Check console)');
+    console.log('Login attempt:', { email, password, role }); // Updated: Include role in log
+    // Mock successful login: Store role in localStorage
+    localStorage.setItem('userRole', role);
+    alert(`Logged in as ${role.charAt(0).toUpperCase() + role.slice(1)}! Redirecting to dashboard...`);
+    // Redirect to dashboard (forces role switch)
+    window.location.href = '/';
+    // Later: Axios POST to backend /auth/login, get real role from response
   };
 
   return (
@@ -48,6 +53,24 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+          </div>
+
+          {/* New: Role Select Input - Added after password */}
+          <div>
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+              Login As
+            </label>
+            <select
+              id="role"
+              name="role"
+              required
+              className="w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="student">Student</option>
+              <option value="faculty">Faculty</option>
+            </select>
           </div>
 
           <div>
